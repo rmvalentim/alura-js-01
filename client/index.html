@@ -60,15 +60,15 @@
     <script>
         let negociacao = new Proxy(new Negociacao(new Date(), 10, 105.99), {
 
-            get: function( target, prop, receiver ) {
+            set: function( target, prop, value, receiver ) {
                 
-                console.log(`${prop} interceptada.`);
-                return Reflect.get( target, prop, receiver );
+                console.log(`Valor anterior ${target[prop]} / Novo valor ${value}`);
+                return Reflect.set( target, prop, value, receiver );
             }
         });
 
-        console.log(negociacao.quantidade);
-        console.log(negociacao.valor);
+        negociacao._quantidade = 23;
+        negociacao._valor = 67.96;
 
     </script>
 </body>
