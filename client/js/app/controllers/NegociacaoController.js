@@ -20,6 +20,11 @@ class NegociacaoController {
             'texto'
         );
 
+        this._init();
+    }
+
+    _init() {
+
         ConnectionFactory
             .getConnection()
             .then(connection => new NegociacaoDao(connection))
@@ -30,7 +35,11 @@ class NegociacaoController {
             .catch(erro => {
                 console.log(erro);
                 this._mensagem.texto = error;
-            })
+            });
+        
+        setInterval(() => {
+            this.importaNegociacoes();
+        }, 3000);
     }
 
     adiciona (event) {
